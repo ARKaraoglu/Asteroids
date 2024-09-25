@@ -1,9 +1,11 @@
 import pygame
+import sys
 from pygame.time import Clock
 from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from circleshape import CircleShape
 
 def main():
     pygame.init()
@@ -21,7 +23,7 @@ def main():
 
     Asteroid.containers = (asteroids, updatableGroup, drawableGroup) #type: ignore
     AsteroidField.containers = (updatableGroup) #type: ignore
-
+    
     asteroidfield = AsteroidField()
     
     while(True):
@@ -31,10 +33,16 @@ def main():
         
         for obj in updatableGroup:
             obj.update(dt) 
+
+        for asteroid in asteroids:
+            if asteroid.collision(player) is True:
+                print("Game over!")
+                sys.exit()
+
         screen.fill((0,0,0))
         for sprite in drawableGroup:
             sprite.draw(screen)
-        
+
    
         dt = clock.tick(60) / 1000 
         
