@@ -6,6 +6,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from circleshape import CircleShape
+from shot import Shot
 
 def main():
     pygame.init()
@@ -26,6 +27,10 @@ def main():
     
     asteroidfield = AsteroidField()
     
+    shots = pygame.sprite.Group()
+    Shot.containers = (shots, updatableGroup, drawableGroup) #type: ignore
+
+
     while(True):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
